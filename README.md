@@ -60,6 +60,7 @@ These are the actions that we need to account for:
 + Adding a book to our list of recommended books
 + Removing a book from our list of recommended books
 
+<<<<<<< HEAD
 Create an actions.js file in `/src` directory to hold the action creators. Because we want these functions to be available in other files when imported, we'll export them.
 
 ```javascript
@@ -77,12 +78,14 @@ export function addRecommendedBook(book){
   }
 }
 
+
 export function removeBook(book){
   return {
     type: "REMOVE_BOOK",
     payload: book
   }
 }
+
 
 export function removeRecommendedBook(book){
   return {
@@ -132,6 +135,7 @@ Notice that we've provided a default value of an empty array for state in both f
 
 ### Step 4: Combine Reducers
 
+<<<<<<< HEAD
 Now, let's dive into creating our `combineReducers` function. But first, let's think about what functionality we need this function to have.
 
 
