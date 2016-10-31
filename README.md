@@ -61,6 +61,7 @@ These are the actions that we need to account for:
 + Removing a book from our list of recommended books
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Create an actions.js file in `/src` directory to hold the action creators. Because we want these functions to be available in other files when imported, we'll export them.
 
 ```javascript
@@ -71,12 +72,14 @@ export function addBook(book){
   }
 }
 
+
 export function addRecommendedBook(book){
   return {
     type: "ADD_RECOMMENDED_BOOK",
     payload: book
   }
 }
+
 
 
 export function removeBook(book){
@@ -88,6 +91,7 @@ export function removeBook(book){
 
 
 export function removeRecommendedBook(book){
+
   return {
     type: "REMOVE_RECOMMENDED_BOOK",
     payload: book
@@ -135,7 +139,6 @@ Notice that we've provided a default value of an empty array for state in both f
 
 ### Step 4: Combine Reducers
 
-<<<<<<< HEAD
 Now, let's dive into creating our `combineReducers` function. But first, let's think about what functionality we need this function to have.
 
 
@@ -165,6 +168,7 @@ function combineReducers(reducers){
 }
 
 ```
+
 So what's happening? Our new reducer function will accept the current state and an action. It then grabs the keys off of the reducer object passed in. It uses the reduce function, which takes two arguments:
 1. A function that specifies how each element in the collection will be used to create a single accumulator value, the new state object
 2. A starting value for the accumulator, which is an empty object in this case
