@@ -2,15 +2,9 @@
 
 ## Objectives
 
-<<<<<<< HEAD
 1. Write action creators and reducers to modify different pieces of application state
 2. Build Redux's `combineReducers` function
 3. Use the `combineReducers` function to delegate different pieces of state to each reducer
-=======
-1. Build Redux's `combineReducers` function
-2. Write two reducers to modify different pieces of application state
-3. Use the `combineReducers` function to
->>>>>>> 812456817e870d38929980cc38dc5423952f971d
 
 ## Instructions
 
@@ -66,48 +60,29 @@ These are the actions that we need to account for:
 + Adding a book to our list of recommended books
 + Removing a book from our list of recommended books
 
-<<<<<<< HEAD
-Create an actions.js file in `/src` directory to hold the action creators. Because we want these functions to be available in other files when imported, we'll export them.
-
-```javascript
-export function addBook(book){
-=======
 ```javascript
 function addBook(book){
->>>>>>> 812456817e870d38929980cc38dc5423952f971d
   return {
     type: "ADD_BOOK",
     payload: book
   }
 }
 
-<<<<<<< HEAD
-export function addRecommendedBook(book){
-=======
 function addRecommendedBook(book){
->>>>>>> 812456817e870d38929980cc38dc5423952f971d
   return {
     type: "ADD_RECOMMENDED_BOOK",
     payload: book
   }
 }
 
-<<<<<<< HEAD
-export function removeBook(book){
-=======
 function removeBook(book){
->>>>>>> 812456817e870d38929980cc38dc5423952f971d
   return {
     type: "REMOVE_BOOK",
     payload: book
   }
 }
 
-<<<<<<< HEAD
-export function removeRecommendedBook(book){
-=======
 function removeRecommendedBook(book){
->>>>>>> 812456817e870d38929980cc38dc5423952f971d
   return {
     type: "REMOVE_RECOMMENDED_BOOK",
     payload: book
@@ -155,7 +130,6 @@ Notice that we've provided a default value of an empty array for state in both f
 
 ### Step 4: Combine Reducers
 
-<<<<<<< HEAD
 Now, let's dive into creating our `combineReducers` function. But first, let's think about what functionality we need this function to have.
 
 
@@ -190,8 +164,3 @@ So what's happening? Our new reducer function will accept the current state and 
 2. A starting value for the accumulator, which is an empty object in this case
 
 Reduce then passes each piece of the state tree into the reducer function that will be responsible for modifying it. Each segment of state and its corresponding reducer function are accessed by their keys.
-=======
-Now, let's dive into creating our combineReducers function. But first, let's think about what functionality we need this function to have.
-
-First, we need `combineReducers` to return a **another** reducer function that we can pass into our store. We need this reducer to know how to delegate its reducer responsibilities for each piece of the state tree to the separate reducers stored on the object passed into `combineReducers`.
->>>>>>> 812456817e870d38929980cc38dc5423952f971d
