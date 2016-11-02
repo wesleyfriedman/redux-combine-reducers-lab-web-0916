@@ -36,7 +36,7 @@ We'll start by determining what our application state object will look like:
 ```
 {
   books: // array of books,
-  favoriteBooks: //array of favorite books
+  recommendedBooks: //array of favorite books
 }
 ```
 
@@ -60,8 +60,7 @@ These are the actions that we need to account for:
 + Adding a book to our list of recommended books
 + Removing a book from our list of recommended books
 
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 Create an actions.js file in `/src` directory to hold the action creators. Because we want these functions to be available in other files when imported, we'll export them.
 
 ```javascript
@@ -101,6 +100,7 @@ export function removeRecommendedBook(book){
 ```
 
 Notice that each action has a type, represented by a string. If we wanted to, we could have saved these type strings as variables and imported them into the file where we have our action creators. This is a common pattern that you'll see, but it's not required.
+
 
 ### Step 3: Write Reducers
 
@@ -156,21 +156,25 @@ So we're on the right track. Our combine reducers function is returning a new re
 
 
 ```javascript
-function combineReducers(reducers){
-  return (state = {}, action)=>{
-    Object.keys(reducers).reduce(
+export function combineReducers(reducers){
+  return (state = {}, action) => {
+    return Object.keys(reducers).reduce(
       (nextState, key)=>{
-        nextState[key] = reducers[key](state[key]), action;
+        nextState[key] = reducers[key](state[key], action);
         return nextState
       }, {}
     )
   }
 }
-
 ```
 
 So what's happening? Our new reducer function will accept the current state and an action. It then grabs the keys off of the reducer object passed in. It uses the reduce function, which takes two arguments:
+
 1. A function that specifies how each element in the collection will be used to create a single accumulator value, the new state object
 2. A starting value for the accumulator, which is an empty object in this case
 
-Reduce then passes each piece of the state tree into the reducer function that will be responsible for modifying it. Each segment of state and its corresponding reducer function are accessed by their keys.
+Reduce then passes each piece of the state tree into the reducer function that will be responsible for modifying it. Each segment of state and its corresponding reducer function are accessed by their keys. This leaves us with a new state object, with the piece stored at each key modified by its correct reducer.
+
+### Resources
+
++ [Implementing Combine Reducers from Scratch](https://egghead.io/lessons/javascript-redux-implementing-combinereducers-from-scratch)
