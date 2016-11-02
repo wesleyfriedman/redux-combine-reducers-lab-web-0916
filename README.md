@@ -178,4 +178,3 @@ Reduce then passes each piece of the state tree into the reducer function that w
 ### Resources
 
 + [Implementing Combine Reducers from Scratch](https://egghead.io/lessons/javascript-redux-implementing-combinereducers-from-scratch)
->>>>>>> ce7a1cb07051f892d5c2c35433e1d3ec143e98cc
