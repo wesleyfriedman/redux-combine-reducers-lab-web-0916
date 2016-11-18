@@ -8,7 +8,11 @@
 
 ## Instructions
 
-In this lab, we'll see how Redux's combine reducers function lets us delegate different pieces of state to separate reducer functions.
+So far, we've seen how we can use Redux to create a store, an object that holds our application state. We've created our store using the createStore method, passing in our reducer function as an argument. This lets us 'register' that reducer function with our store so that each action that our store dispatches is passed to our reducer. Our reducer accepts an action as its argument and returns a new state object, depending on how our action has indicated that state should change.
+
+This sounds all well and good...but we might have a slight problem, in that every change that we want to make to our application state has to be defined in a single reducer function. This might work our great for a small application with just a few different state changes, but you can imagine it would quickly become unwieldy in a large application.
+
+Enter combineReducers to save the day! In this lab, we'll see how Redux's combine reducers function lets us delegate different pieces of state to separate reducer functions.
 
 We'll do this in the context of a book application that we'll use to keep track of programming books that we've read.
 
@@ -27,9 +31,11 @@ The actions we need to implement are:
 Our app will need a state object that stores two types of information:
 
 1. All our books, in an array
-2. The favorite books, also in an array
+2. Our recommended books, also in an array
 
-Whenever we add a book to our library, we need to dispatch an action that will cause it to be added to our array of books. Whenever we want to "favorite" a book, we want that book to be added to our list of recommended books.
+Each of these types of information--all our books, and the books we recommend--should be represented on our application state object. Note that this is a different way of thinking about our data than we've seen in a relational database, where each book would be stored only once. With Redux even though some of the books will be the same, our application will use these elements differently. We'll probably have one view where a user can see all the books, and other view where they can see only the favorited books. We might want to see all the books at once, then filter by only those books that have been favorites. We might want to mark the favorited books using a different color. These UI choices mean we need to keep this information organized in this same way on our application state object. 
+
+We also need to keep track of the different user actions that might affect our data. Whenever we add a book to our library, we need to dispatch an action that will cause it to be added to our array of books. Whenever we want to "favorite" a book, we want that book to be added to our list of recommended books.
 
 We'll start by determining what our application state object will look like:
 
@@ -39,8 +45,7 @@ We'll start by determining what our application state object will look like:
   recommendedBooks: //array of favorite books
 }
 ```
-
-Because we have two top-level keys in our state object, we'll need two reducers. For simplicity, let's gives these functions the same name as our keys. This means the object that we'll pass into our `combineReducers` function will look like this:
+So our state object will have two twop-level keys, each pointing to an array of books. Because we have two top-level keys in our state object, we'll need two reducers. For simplicity, let's gives these functions the same name as our keys. This means the object that we'll pass into our `combineReducers` function will look like this:
 
 ```javascript
 {
@@ -48,7 +53,19 @@ Because we have two top-level keys in our state object, we'll need two reducers.
   recommendedBooks
 }
 ```
+Note that this is just some fancy ES6 syntactic sugar for this:
 
+```javascript
+{
+  books: books,
+  recommendedBooks: recommendedBooks
+}
+
+```
+
+What we're doing here is telling Redux, "Hey - our application state has two top level keys: one for books, one for recommended books. We have two functions that we'll use to keep this data updated, and I've given those functions the same names as the keys pointing to the data on my state object."
+
+Any action to modify our list of all books will be handled by the books reducer function and any actions that will change our list of recommended books will be handled by the recommendedBooks reducer function.
 
 ### Step 2: Define Actions
 
@@ -173,7 +190,18 @@ So what's happening? Our new reducer function will accept the current state and 
 1. A function that specifies how each element in the collection will be used to create a single accumulator value, the new state object
 2. A starting value for the accumulator, which is an empty object in this case
 
-Reduce then passes each piece of the state tree into the reducer function that will be responsible for modifying it. Each segment of state and its corresponding reducer function are accessed by their keys. This leaves us with a new state object, with the piece stored at each key modified by its correct reducer.
+Reduce then passes each piece of the state tree into the reducer function that will be responsible for modifying it. Each segment of state and its corresponding reducer function are accessed by their keys. This leaves us with a new state object, with the piece stored at each key modified by its correct reducer. Neat!
+
+So now we've seen how we can create a single reducer function that will delegate management of different pieces of state to smaller reducer functions. If it sounds like it would be pretty tedious to code this function from scratch each time, you're right! Luckily, Redux actually includes its own `combineReducers` function that behaves nearly identically to the version we've just coded by hand.
+
+To use Redux's `combineReducers` function, just import it where you want to use it:
+
+```javascript
+import { combineReducers } from 'redux'
+
+const rootReducer = combineReducers({books, recommendedBooks})
+
+```
 
 ### Resources
 
